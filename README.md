@@ -1,4 +1,5 @@
 This Project demonstrates how to set up a nginx server as a reverse proxy.
+For demonstration purposes we will be using two springboot apps demoapp1 and demoapp2.
 We will be using docker containers and hence we need to make sure that all the app containers and the nginx container are in the 
 same docker network so that nginx is able to resolve the container name into addresses in the proxy pass directive in default.conf file
 The default.conf file shows how to configure the nginx server as a reverse proxy.
