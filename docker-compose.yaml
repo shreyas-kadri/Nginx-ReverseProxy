@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx_proxy
+    ports:
+      - "80:80"
+    volumes:
+      - ./default.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - backend_network
+    depends_on:
+      - demoapp1
+      - demoapp2
+
+  demoapp1:
+    build:
+      context: .
+      dockerfile: DemoApp1/Dockerfile
+    container_name: demoapp1
+    ports:
+      - "8090:8090"
+    networks:
+      - backend_network
+
+  demoapp2:
+    build:
+      context: .
+      dockerfile: DemoApp2/Dockerfile
+    container_name: demoapp2
+    ports:
+      - "8092:8092"
+    networks:
+      - backend_network
+
+networks:
+  backend_network:
+    driver: overlay
+    attachable: true
